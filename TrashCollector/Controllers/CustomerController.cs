@@ -85,23 +85,39 @@ namespace TrashCollector.Controllers
 
         // GET: CustomerController/Edit/5
         public ActionResult Edit(int id)
-        {           
-            return View();
+        {
+            var customer = _context.Customers.SingleOrDefault(c => c.CustomerId == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            customer.Days = new SelectList(_context.Days.ToList(), "Id", "Name");
+            return View(customer);
         }
 
         // POST: CustomerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Customer customer)
         {
-            try
+            if (id != customer.CustomerId)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
-            {
-                return View();
-            }
+
+            var loggedInCustomer = _context.Customers.SingleOrDefault(m => m.CustomerId == id);
+            loggedInCustomer.FirstName = customer.FirstName;
+            loggedInCustomer.LastName = customer.LastName;
+            loggedInCustomer.Address = customer.Address;
+            loggedInCustomer.ZipCode = customer.ZipCode;
+            loggedInCustomer.DayId = customer.DayId;
+            loggedInCustomer.Days = new SelectList(_context.Days.ToList(), "Id", "Name");
+            loggedInCustomer.ExtraPickupDay = customer.ExtraPickupDay;
+            loggedInCustomer.SuspendPickupStart = customer.SuspendPickupStart;
+            loggedInCustomer.SuspendPickupEnd = customer.SuspendPickupEnd;
+
+            _context.SaveChanges();
+            return RedirectToAction("Details", customer);
         }
 
         // GET: CustomerController/Delete/5
