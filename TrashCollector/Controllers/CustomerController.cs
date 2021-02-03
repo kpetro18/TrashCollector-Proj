@@ -56,9 +56,10 @@ namespace TrashCollector.Controllers
         public ActionResult Create()
         {
             //maybe create a Days model
+            var days = _context.Days.ToList();
             Customer customer = new Customer()
             {
-
+                Days = new SelectList(days, "Id", "Name")
             };
             return View(customer);
         }
@@ -68,12 +69,23 @@ namespace TrashCollector.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Customer customer)
         {
-            return View();
+            try
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.IdentityUserId = userId;
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: CustomerController/Edit/5
         public ActionResult Edit(int id)
-        {
+        {           
             return View();
         }
 

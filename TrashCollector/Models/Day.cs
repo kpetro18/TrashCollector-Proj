@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrashCollector.Models
 {
-    public class Days
+    public class Day
     {
         [Key]
         public int Id { get; set; }
