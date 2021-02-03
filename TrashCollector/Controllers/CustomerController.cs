@@ -41,8 +41,8 @@ namespace TrashCollector.Controllers
         // GET: CustomerController/Details/5
         public ActionResult Details(int id)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == this.User.FindFirstValue(ClaimTypes.NameIdentifier)).SingleOrDefault();
 
             if (customer == null)
             {
@@ -71,8 +71,8 @@ namespace TrashCollector.Controllers
         {
             try
             {
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                customer.IdentityUserId = userId;
+                //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Customers.Add(customer);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -129,10 +129,13 @@ namespace TrashCollector.Controllers
         // POST: CustomerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Customer customer)
         {
             try
             {
+                //var deletedCustomer = _context.Customers.SingleOrDefault(c => c.CustomerId == id);
+                _context.Remove(_context.Customers.SingleOrDefault(c => c.CustomerId == id));
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -54,31 +54,31 @@ namespace TrashCollector.Data
                 .HasData(
                 new Day
                 {
-                    Id = 0,
+                    Id = 1,
                     Name = "Sunday"
                 }, new Day
                 {
-                    Id = 1,
+                    Id = 2,
                     Name = "Monday"
                 }, new Day
                 {
-                    Id = 2,
+                    Id = 3,
                     Name = "Tuesday"
                 }, new Day
                 {
-                    Id = 3,
+                    Id = 4,
                     Name = "Wednesday"
                 }, new Day
                 {
-                    Id = 4,
+                    Id = 5,
                     Name = "Thursday"
                 }, new Day
                 {
-                    Id = 5,
+                    Id = 6,
                     Name = "Friday"
                 }, new Day
                 {
-                    Id = 5,
+                    Id = 7,
                     Name = "Saturday"
                 });
         }
