@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using TrashCollector.Data;
 
 namespace TrashCollector.Controllers
 {
@@ -12,10 +14,26 @@ namespace TrashCollector.Controllers
 
     public class EmployeeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public EmployeeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: EmployeeController
         public ActionResult Index()
         {
-            return View();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
+
+            //if not registered, take to Create view
+            if (employee == null)
+            {
+                return RedirectToAction("Create");  //if not registered, take to Create view
+            }
+
+            return View("Index"); //also pass in customers info for route
         }
 
         // GET: EmployeeController/Details/5
