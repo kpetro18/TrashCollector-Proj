@@ -14,8 +14,8 @@ namespace TrashCollector.Models
         [Key]
         public int CustomerId { get; set; }
 
-        [Display(Name = "Balance Due")]
-        public int Balance { get; set; }
+        [Display(Name = "Amount Due")]
+        public int AmountDue { get; set; }
 
 
         [Display(Name = "First Name")]
@@ -33,13 +33,11 @@ namespace TrashCollector.Models
         public string Address { get; set; }
 
 
-        //[Display(Name = "Weekly Pickup Day")]
-        //public DayOfWeek WeeklyPickupDay { get; set; }
         [NotMapped]
         public SelectList Days { get; set; }
 
         [ForeignKey("Day")]
-        [Display(Name = "Regular Pickup Day")]
+        [Display(Name = "Weekly Pickup Day")]
         public int DayId { get; set; }
         public Day Day { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,14 +29,20 @@ namespace TrashCollector.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
 
-            //if not registered, take to Create view
             if (employee == null)
             {
-                //if not registered, take to Create view
-                return RedirectToAction("Create"); 
+                return RedirectToAction("Create");
             }
 
-            return View("Index"); //also pass in customers pickup info for route??
+            var customerList = _context.Customers.Include(c => c.Day).ToList();
+            var routeZipCodeCustomers = customerList.Where(c => c.ZipCode == employee.ZipCode).ToList();
+            var currentDay = DateTime.Today.DayOfWeek.ToString();
+            var regularPickupCustomers = routeZipCodeCustomers.Where(c => c.Day.Name == currentDay).ToList();
+            var extraCustomers = routeZipCodeCustomers.Where(c => c.ExtraPickupDay == DateTime.Today).ToList();
+            var allCustomersPreSuspension = regularPickupCustomers.Concat(extraCustomers);
+            var allCustomersToday = allCustomersPreSuspension.Where(c => c.SuspendPickupStart == null ? true : (c.SuspendPickupStart > DateTime.Today && c.SuspendPickupEnd < DateTime.Today)).ToList();
+
+            return View("Index", allCustomersToday);
         }
 
         // GET: EmployeeController/Details/5

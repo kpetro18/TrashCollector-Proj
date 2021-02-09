@@ -15,32 +15,32 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CustomerId" />
             <div class="form-group">
-                <label asp-for="Balance" class="control-label"></label>
-                <input asp-for="Balance" class="form-control" />
-                <span asp-validation-for="Balance" class="text-danger"></span>
+                <label asp-for="AmountDue" class="control-label"></label>
+                <input asp-for="AmountDue" class="form-control" />
+                <span asp-validation-for="AmountDue" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
+                <label asp-for="AmountDue" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
+                <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ZipCode" class="control-label"></label>
+                <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="ZipCode" class="form-control" />
                 <span asp-validation-for="ZipCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
+                <label asp-for="ZipCode" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DayId" class="control-label"></label>
+                <label asp-for="Address" class="control-label"></label>
                 <select asp-for="DayId" class="form-control" asp-items="ViewBag.DayId"></select>
                 <span asp-validation-for="DayId" class="text-danger"></span>
             </div>
@@ -51,8 +51,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="ExtraPickupDay" class="control-label"></label>
-                <input asp-for="ExtraPickupDay" class="form-control" />
-                <span asp-validation-for="ExtraPickupDay" class="text-danger"></span>
+                <input asp-for="DayId" class="form-control" />
+                <span asp-validation-for="AdditionalPickup" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -67,11 +67,11 @@
             <div class="form-group">
                 <label asp-for="SuspendPickupEnd" class="control-label"></label>
                 <input asp-for="SuspendPickupEnd" class="form-control" />
-                <span asp-validation-for="SuspendPickupEnd" class="text-danger"></span>
+                <span asp-validation-for="ExtraPickupDay" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdentityUserId" class="control-label"></label>
-                <select asp-for="IdentityUserId" class="form-control" asp-items="ViewBag.IdentityUserId"></select>
+                <label asp-for="ExtraPickupDay" class="control-label"></label>
+                <select asp-for="SuspendedPickup" class="form-control" asp-items="ViewBag.IdentityUserId"></select>
                 <span asp-validation-for="IdentityUserId" class="text-danger"></span>
             </div>
             <div class="form-group">
