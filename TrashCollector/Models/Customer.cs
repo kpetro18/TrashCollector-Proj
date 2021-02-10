@@ -15,7 +15,7 @@ namespace TrashCollector.Models
         public int CustomerId { get; set; }
 
         [Display(Name = "Amount Due")]
-        public int AmountDue { get; set; }
+        public double AmountDue { get; set; }
 
 
         [Display(Name = "First Name")]
@@ -29,7 +29,7 @@ namespace TrashCollector.Models
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
 
-
+        [Display(Name = "Address")]
         public string Address { get; set; }
 
 
@@ -56,6 +56,10 @@ namespace TrashCollector.Models
 
         [Display(Name = "Suspend Pickup End Day(Optional)")]
         public DateTime SuspendPickupEnd { get; set; }
+
+
+        [Display(Name = "Pickup Confirmed")]
+        public bool PickupConfirmed { get; set; }
 
 
         [ForeignKey("IdentityUser")]

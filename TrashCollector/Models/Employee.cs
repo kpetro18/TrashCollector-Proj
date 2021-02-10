@@ -13,11 +13,21 @@ namespace TrashCollector.Models
         //add variable of pickup locations for the day -- using google maps API?
         [Key]
         public int EmployeeId { get; set; }
+
+
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+
+
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+
+        [Display(Name = "Zip Code")]
         public int ZipCode { get; set; } //might need additional variables for google map API
         //public string CurrentDayOfWeek { get; set; } //can use C# methods to get this info so doesnt need to be stored on DB
-        public bool CompletedPickup { get; set; } //if completed pickup add charge to customer
+
+
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }

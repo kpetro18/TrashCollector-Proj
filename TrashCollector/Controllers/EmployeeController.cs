@@ -73,7 +73,8 @@ namespace TrashCollector.Controllers
         {
             try
             {
-                employee.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employee.IdentityUserId = userId;
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -117,7 +118,7 @@ namespace TrashCollector.Controllers
         }
 
         // GET: EmployeeController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             var employee = _context.Employees.SingleOrDefault(e => e.EmployeeId == id);
             return View(employee);
@@ -126,7 +127,7 @@ namespace TrashCollector.Controllers
         // POST: EmployeeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Employee employee)
+        public ActionResult Delete(int id/*, Employee employee*/)
         {
             try
             {
@@ -138,6 +139,22 @@ namespace TrashCollector.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult DriverConfirmPickup(int id)
+        {
+            var customer = _context.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+            if (customer.PickupConfirmed == true)
+            {
+                customer.AmountDue += 15.00;
+                _context.Update(customer);
+                _context.SaveChanges();
+            }
+            else
+            {
+                customer.AmountDue = 0.00; //might change a previously owed payment to zero?
+            }
+            return View(customer);
         }
     }
 }
